@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var url = require('url');
+var i18n = require('i18n');
 
 module.exports = (req, res, next) => {
 	if (!res) {
@@ -18,10 +19,10 @@ module.exports = (req, res, next) => {
 		results.map((result) => {
 			if (!res.locals[result.meta]) {
 				res.locals[result.meta] = {
-					[result.tag]: result.value
+					[result.tag]: i18n.__(`${result.meta}.${result.tag}:${result.value}`)
 				};
 			} else {
-				res.locals[result.meta][result.tag] = result.value;
+				res.locals[result.meta][result.tag] = i18n.__(`${result.meta}.${result.tag}:${result.value}`);
 			}
 		})
 
